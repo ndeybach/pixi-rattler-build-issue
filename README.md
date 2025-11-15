@@ -16,7 +16,15 @@ Error:   × failed to build 'demo-context-buildstring' from './demo-recipe'
   ╰─▶   × the requested output demo-context-buildstring/0.1.0=_py_hb0f4dca_@linux-64 was not found in the recipe
 ```
 
-3. Now comment the build.string line in `demo-recipe/recipe.yaml`:
+3. Check that the recipe does indeed build with rattler-build directly:
+
+```bash
+rattler-build build --recipe demo-recipe/recipe.yaml
+```
+
+This shows that the recipe is valid and builds correctly with rattler-build. The problem comes from pixi's handling of the build string in the recipe when using path pointing syntax in pixi's pixi.toml .
+
+4. Now comment the build.string line in `demo-recipe/recipe.yaml`:
 ```yaml
 build:
   number: 0
@@ -25,7 +33,7 @@ build:
     - echo "demo" > "$PREFIX/demo.txt"
 ```
 
-4. Run ` pixi install --all` again:
+5. Run ` pixi install --all` again:
 
 You will see that the build now succeeds:
 
