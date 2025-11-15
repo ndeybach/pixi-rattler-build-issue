@@ -1,0 +1,22 @@
+context:
+  # Single source of truth for the Python version and build string.
+  python: "3.11"
+  build_string_prefix: "cuda129"
+
+package:
+  name: demo-context-buildstring
+  version: "0.1.0"
+
+build:
+  number: 0
+  string: ${{ build_string_prefix }}_py${{ python | version_to_buildstring }}_h${{ hash }}_${{ build_number }}
+  script:
+    - echo "demo" > "$PREFIX/demo.txt"
+
+requirements:
+  build:
+    - python ${{ python ~ ".*" }}
+  host:
+    - python ${{ python ~ ".*" }}
+  run:
+    - python ${{ python ~ ".*" }}
