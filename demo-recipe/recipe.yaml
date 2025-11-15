@@ -11,7 +11,12 @@ build:
   number: 0
   string: ${{ build_string_prefix }}_py${{ python | version_to_buildstring }}_h${{ hash }}_${{ build_number }}
   script:
-    - echo "demo" > "$PREFIX/demo.txt"
+    - if: unix
+      then:
+        - echo "demo" > "$PREFIX/demo.txt"
+    - if: win
+      then:
+        - echo demo > "%PREFIX%\demo.txt"
 
 requirements:
   build:
